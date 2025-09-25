@@ -13,7 +13,7 @@ const nextConfig = {
             // Add your exact portfolio origin(s) here:
             // If you have a custom domain, use that instead of the vercel.app URL.
             value:
-              "frame-ancestors 'self' https://portfolio-sumedh-badnores-projects.vercel.app;",
+              "frame-ancestors 'self' https://portfolio-sumedh-badnores-projects.vercel.app http://localhost:3000;",
           },
         ],
       },
