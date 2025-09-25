@@ -1,26 +1,115 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0c10;
+  --card: #111318;
+  --fg: #e6e6e6;
+  --muted: #9aa0a6;
+  --accent: #6ee7b7;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--fg);
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0d0f14;
+  color: var(--fg);
+}
+.button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #141821;
+  color: var(--fg);
+  cursor: pointer;
+}
+.button:hover {
+  border-color: var(--accent);
+}
+.badge {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #12151d;
+  color: var(--muted);
+  font-size: 12px;
+}
+small.muted {
+  color: var(--muted);
+}
+ul.clean {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.clean li {
+  margin: 0 0 10px 0;
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.msg {
+  padding: 12px 14px;
+  border-radius: 14px;
+  max-width: 80%;
+}
+.msg.user {
+  align-self: flex-end;
+  background: #1e2634;
+}
+.msg.bot {
+  align-self: flex-start;
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }

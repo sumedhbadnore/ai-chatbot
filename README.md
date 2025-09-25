@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio AI Chatbot (Next.js + Vercel AI SDK)
 
-## Getting Started
+A lightweight, privacy-conscious chat widget that answers questions about **you**, grounded by a small in-repo knowledge base.
 
-First, run the development server:
+## 🧰 Tech
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js 14 App Router (Edge runtime for fast cold starts)
+- Vercel AI SDK (`ai`, `@ai-sdk/openai`) for streaming chat
+- Tiny in-memory RAG (no external DB). Swap with a vector DB later if needed.
+
+## 🚀 Quickstart
+
+1. **Clone** this folder or copy files into your portfolio repo.
+2. **Install** deps: `pnpm i` (or `npm i` / `yarn`)
+3. **Create** `.env.local` with your key:
+
+```
+OPENAI_API_KEY=sk-...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Edit** `data/profile.ts` with your facts + links.
+5. **Run** locally: `pnpm dev` then open http://localhost:3000
+6. **Deploy**: push to GitHub and import on Vercel. Environment variable `OPENAI_API_KEY` must be set in Project Settings → Environment Variables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔒 Privacy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- No server-side persistence. The API streams directly from the model.
+- You control exactly what the bot knows via `data/profile.ts`.
 
-## Learn More
+## 🧠 RAG Notes
 
-To learn more about Next.js, take a look at the following resources:
+- We use a deterministic hash-based embedding to rank profile chunks (fast & free). For higher accuracy:
+- Replace `fakeEmbed` with OpenAI embeddings and cache vectors.
+- Or use a vector DB (e.g., Vercel Postgres, Pinecone, Upstash Vector) and index `PROFILE` plus your blog posts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧩 Custom Prompts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Adjust behavior in the `system` prompt inside `app/api/chat/route.ts`.
+- Add tool functions for more capabilities (e.g., fetching latest blog posts).
 
-## Deploy on Vercel
+## 🧪 Test Prompts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- "What stacks do you use?"
+- "Share your resume link."
+- "What’s a project you’re proud of?"
+- "Where are you located and what roles are you seeking?"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ❓FAQ
+
+**Q: Can it refuse off-topic questions?** Yes—prompt enforces that.
+**Q: Can it hallucinate?** We ground with `PROFILE`; still keep answers short, and add citations like (p2).
+**Q: Multiple personas?** Create multiple `PROFILE`s and select one based on route/URL.
