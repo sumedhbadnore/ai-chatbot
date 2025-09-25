@@ -1,5 +1,5 @@
 // app/embed/page.tsx (bot app)
-import "@/app/globals.css"; // ✅ pull in the widget styles
+import "../globals.css"; // ✅ pull in the widget styles
 import ChatWidget from "../../components/ChatWidget";
 
 export const runtime = "edge";
